@@ -1,4 +1,4 @@
-# 🛡️ ReserveHub Enterprise | Plataforma Empresarial de Reservas y Gestión Hotelera
+# 🛡️ Reservas Habitaciones | Aplicación de testeo se reservas y gestión hotelera
 
 [![Spring Boot 3.3](https://img.shields.io/badge/Spring%20Boot-3.3.4-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Java 21 LTS](https://img.shields.io/badge/Java-21%20LTS-orange.svg)](https://openjdk.org/projects/jdk/21/)
@@ -10,7 +10,7 @@
 [![Seguridad](https://img.shields.io/badge/Seguridad-JWT%20Stateless%20%2B%20RBAC-red.svg)](#-seguridad-y-autenticaci%C3%B3n-stateless)
 [![Docker](https://img.shields.io/badge/Docker-Multi--Stage%20Alpine-2496ED.svg)](https://www.docker.com/)
 
-Plataforma fullstack de misión crítica diseñada para la gestión de inventario hotelero corporativo (suites ejecutivas de Highland Reserve, cabinas de descanso de tripulación), hubs y depósitos regionales, motor de detección de colisiones de reserva con buffer de sanitización, y control de acceso bajo políticas Zero-Trust.
+Aplicación fullstack diseñada para la gestión de inventario hotelero (suites ejecutivas) y hubs.
 
 ---
 
