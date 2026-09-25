@@ -1,0 +1,6 @@
+{
+  "name": "ReserveHub Enterprise",
+  "description": "Backend empresarial de misión crítica para reservas de hospitalidad y suites en Spring Boot 3.x con Clean Architecture, seguridad JWT, suite QA y consola de gestión en React.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

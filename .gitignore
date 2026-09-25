@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Production & Build outputs
+dist/
+build/
+backend/target/
+target/
+*.class
+
+# Environment variables & secrets (keep example)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Logs & Temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+
+# Testing outputs & coverage reports (ensure tests in src/test/ are kept)
+coverage/
+.nyc_output/
+*.lcov
+
+# IDE & Editor files
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

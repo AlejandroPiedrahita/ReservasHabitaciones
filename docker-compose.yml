@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # PostgreSQL Relational Database Service (Persistent Data Store)
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: reservehub-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: reservehub_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: enterprise_secure_pass_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d reservehub_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - reservehub-network
+
+  # ----------------------------------------------------------------------------
+  # Redis Cache & Distributed Lock Store (High-Frequency Session & In-Transit)
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: reservehub-redis
+    restart: always
+    command: redis-server --appendonly yes --requirepass enterprise_redis_secret
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "enterprise_redis_secret", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - reservehub-network
+
+  # ----------------------------------------------------------------------------
+  # Spring Boot 3.x Enterprise Backend Application Service
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reservehub-backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/reservehub_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: enterprise_secure_pass_2026
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: enterprise_redis_secret
+      JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8080
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/v1/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - reservehub-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  reservehub-network:
+    driver: bridge

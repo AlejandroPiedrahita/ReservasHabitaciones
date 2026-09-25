@@ -1,0 +1,50 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: reservehub-enterprise-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/reservehub_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+
+# ReserveHub Enterprise Security & JWT
+reservehub:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      expiration-ms: 3600000 # 1 hour
+      refresh-expiration-ms: 86400000 # 24 hours
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:8080}
+      allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
+      allowed-headers: Authorization,Content-Type,X-Requested-With,Accept,Origin
+      allow-credentials: true
+  dispatch:
+    turnaround-buffer-minutes: 35
+    strict-housekeeping-lock: true
+
+# OpenAPI / Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
