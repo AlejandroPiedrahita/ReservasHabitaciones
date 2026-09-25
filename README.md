@@ -1,4 +1,4 @@
-# 🛡️ Reservas Habitaciones | Aplicación de testeo se reservas y gestión hotelera
+# 🛡️ Reservas Habitaciones | Aplicación de testeo de reservas y gestión hotelera
 
 [![Spring Boot 3.3](https://img.shields.io/badge/Spring%20Boot-3.3.4-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Java 21 LTS](https://img.shields.io/badge/Java-21%20LTS-orange.svg)](https://openjdk.org/projects/jdk/21/)
